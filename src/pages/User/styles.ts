@@ -3,12 +3,16 @@ import styled from 'styled-components';
 export const Container = styled.div`
   height: 100vh;
 
+  svg {
+    margin-right: 8px;
+  }
+
   img {
-    height: 115pt;
+    height: 115px;
     border-radius: 50%;
-    border: 3pt solid #fff;
+    border: 3px solid #fff;
     position: absolute;
-    top: 68.5pt;
+    top: 68.5px;
 
     left: 50%;
     transform: translateX(-50%);
@@ -18,42 +22,41 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 126pt;
-  padding-top: 25pt;
+  height: 126px;
+  padding-top: 25px;
   background-color: #1f1f1f;
-  margin-bottom: 100pt;
+  margin-bottom: 80px;
 
   h1 {
     margin-left: 12px;
-    font-size: 17pt;
+    font-size: 17px;
   }
 
   a {
     display: flex;
     text-decoration: none;
     color: #fff;
-    font-size: 17pt;
+    font-size: 17px;
     font-weight: lighter;
 
     svg {
-      margin: 0 20pt 0 12pt;
+      margin: 0 20px 0 12px;
     }
   }
 `;
 
 export const Content = styled.div`
-  margin: 0 0 50pt 24pt;
-  margin-bottom: 50pt;
+  margin: 0 0 25px 30px;
+  padding-top: 8px;
 
-  h1 {
-    text-transform: uppercase;
-    font-size: 1.6em;
-    margin-bottom: 16px;
-  }
   p {
     font-weight: lighter;
-    font-size: 1em;
+    font-size: 18px;
     line-height: 1.6;
+  }
+
+  &:last-child {
+    padding-bottom: 100px;
   }
 `;
 
@@ -62,10 +65,10 @@ export const MiddleContent = styled.div`
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  padding: 0 20pt 0pt 20pt;
+  padding: 0 20px 0px 20px;
   background-color: #5252525d;
-  margin-bottom: 50pt;
-  height: 97pt;
+  margin-bottom: 25px;
+  height: 97px;
 
   a {
     text-decoration: none;
@@ -73,10 +76,10 @@ export const MiddleContent = styled.div`
   }
 
   h1 {
-    font-size: 40pt;
+    font-size: 40px;
   }
   p {
     font-weight: lighter;
-    font-size: 17pt;
+    font-size: 17px;
   }
 `;

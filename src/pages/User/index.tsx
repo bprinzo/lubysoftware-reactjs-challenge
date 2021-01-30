@@ -1,64 +1,92 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FiLogOut } from 'react-icons/fi';
+import {
+  IoBusinessOutline,
+  IoLocationOutline,
+  IoMailOutline,
+} from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 import { Container, Header, MiddleContent, Content } from './styles';
 
-import Decoration from '../../components/Decoration';
-
-import avatarLogo from '../../assets/avatar.jpg';
+import TitleIndicator from '../../components/TitleIndicator';
+import TabMenuBar from '../../components/TabMenuBar';
+import { useData } from '../../hooks/DataContext';
+import { useTab } from '../../hooks/TabContext';
 
 const User: React.FC = () => {
+  const { userData, signOut } = useData();
+  const { path, activateTab } = useTab();
+
+  console.log(userData);
+
+  useEffect(() => {
+    activateTab();
+  }, [activateTab]);
+
+  const handleClick = useCallback(() => {
+    signOut();
+  }, [signOut]);
+
   return (
-    <Container>
-      <Header>
-        <h1>#anilton.veiga</h1>
-        <a href="sair">
-          Sair <FiLogOut size={25} color="#D03434" />
-        </a>
-      </Header>
+    <>
+      <Container>
+        <Header>
+          <a href={userData.html_url}>
+            <h1>{`#${userData.login}`}</h1>
+          </a>
+          <Link to="/" onClick={handleClick}>
+            Sair <FiLogOut size={20} color="#D03434" />
+          </Link>
+        </Header>
 
-      <img src={avatarLogo} alt="Avatar Logo" />
+        <img src={userData.avatar_url} alt="Avatar Logo" />
 
-      <Decoration />
+        <TitleIndicator
+          title={`${userData.name}`}
+          titleSize={26}
+          isTitleUppercase
+        />
+        <Content>
+          <p>
+            {userData.email && <IoMailOutline />}
+            {userData.email}
+          </p>
+          <p>
+            {userData.location && <IoLocationOutline />}
+            {userData.location}
+          </p>
+          <p>
+            {userData.company && <IoBusinessOutline />}
+            {userData.company}
+          </p>
+        </Content>
 
-      <Content>
-        <h1>Anilton Veiga</h1>
-        <p>
-          anilton.veigaa@gmail.com <br />
-          Itaí/SP
-        </p>
-      </Content>
-
-      <MiddleContent>
-        <a href="click">
-          <h1>32</h1>
-          <p>Seguidores</p>
-        </a>
-        <a href="click">
-          <h1>32</h1>
-          <p>Seguindo</p>
-        </a>
-        <a href="click">
-          <h1>10</h1>
-          <p>Repos</p>
-        </a>
-      </MiddleContent>
-
-      <Decoration />
-
-      <Content>
-        <h1>Bio</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel
-          porta sapien, id tincidunt nunc. Morbi ornare at turpis id tincidunt.
-          Vivamus egestas felis imperdiet diam ullamcorper, a pulvinar justo
-          blandit. In quis tempor quam. Praesent elementum eleifend congue. In
-          laoreet lacus eget purus ullamcorper sodales. Etiam sollicitudin enim
-          at dui lobortis, eget volutpat leo pharetra. Vivamus quis sem lorem.
-          Etiam efficitur orci sit amet euismod lobortis.
-        </p>
-      </Content>
-    </Container>
+        <MiddleContent>
+          <Link to="followers">
+            <h1>{userData.followers}</h1>
+            <p>Seguidores</p>
+          </Link>
+          <Link to="followers">
+            <h1>{userData.following}</h1>
+            <p>Seguindo</p>
+          </Link>
+          <Link to="repos">
+            <h1>{userData.public_repos}</h1>
+            <p>Repos</p>
+          </Link>
+        </MiddleContent>
+        {userData.bio && (
+          <>
+            <TitleIndicator title="Bio" titleSize={26} isTitleUppercase />
+            <Content>
+              <p>{userData.bio}</p>
+            </Content>
+          </>
+        )}
+      </Container>
+      <TabMenuBar path={path} />
+    </>
   );
 };
 
