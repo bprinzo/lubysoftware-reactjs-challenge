@@ -15,10 +15,8 @@ import { useData } from '../../hooks/DataContext';
 import { useTab } from '../../hooks/TabContext';
 
 const User: React.FC = () => {
-  const { userData, signOut } = useData();
+  const { data, signOut } = useData();
   const { path, activateTab } = useTab();
-
-  console.log(userData);
 
   useEffect(() => {
     activateTab();
@@ -32,55 +30,55 @@ const User: React.FC = () => {
     <>
       <Container>
         <Header>
-          <a href={userData.html_url}>
-            <h1>{`#${userData.login}`}</h1>
+          <a href={data.userData.html_url}>
+            <h1>{`#${data.userData.login}`}</h1>
           </a>
           <Link to="/" onClick={handleClick}>
             Sair <FiLogOut size={20} color="#D03434" />
           </Link>
         </Header>
 
-        <img src={userData.avatar_url} alt="Avatar Logo" />
+        <img src={data.userData.avatar_url} alt="Avatar Logo" />
 
         <TitleIndicator
-          title={`${userData.name}`}
+          title={data.userData.name ? data.userData.name : `-`}
           titleSize={26}
           isTitleUppercase
         />
         <Content>
           <p>
-            {userData.email && <IoMailOutline />}
-            {userData.email}
+            {data.userData.email && <IoMailOutline />}
+            {data.userData.email}
           </p>
           <p>
-            {userData.location && <IoLocationOutline />}
-            {userData.location}
+            {data.userData.location && <IoLocationOutline />}
+            {data.userData.location}
           </p>
           <p>
-            {userData.company && <IoBusinessOutline />}
-            {userData.company}
+            {data.userData.company && <IoBusinessOutline />}
+            {data.userData.company}
           </p>
         </Content>
 
         <MiddleContent>
           <Link to="followers">
-            <h1>{userData.followers}</h1>
+            <h1>{data.userData.followers}</h1>
             <p>Seguidores</p>
           </Link>
-          <Link to="followers">
-            <h1>{userData.following}</h1>
+          <Link to="following">
+            <h1>{data.userData.following}</h1>
             <p>Seguindo</p>
           </Link>
           <Link to="repos">
-            <h1>{userData.public_repos}</h1>
+            <h1>{data.userData.public_repos}</h1>
             <p>Repos</p>
           </Link>
         </MiddleContent>
-        {userData.bio && (
+        {data.userData.bio && (
           <>
             <TitleIndicator title="Bio" titleSize={26} isTitleUppercase />
             <Content>
-              <p>{userData.bio}</p>
+              <p>{data.userData.bio}</p>
             </Content>
           </>
         )}

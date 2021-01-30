@@ -6,6 +6,7 @@ import User from '../pages/User';
 import Repositories from '../pages/Repositories';
 import Follower from '../pages/Follower';
 import Route from './Route';
+import Following from '../pages/Following';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -13,6 +14,7 @@ const Routes: React.FC = () => (
     <Route path="/user" component={User} isPrivate />
     <Route path="/repos" component={Repositories} isPrivate />
     <Route path="/followers" component={Follower} isPrivate />
+    <Route path="/following" component={Following} isPrivate />
   </Switch>
 );
 

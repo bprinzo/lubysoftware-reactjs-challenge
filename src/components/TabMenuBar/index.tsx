@@ -23,7 +23,7 @@ const TabMenuBar: React.FC<TabMenuProps> = ({ path }) => {
         <FiUsers size={25} />
         <p>Seguidores</p>
       </Link>
-      <Link to="followers">
+      <Link to="following">
         <FiUsers size={25} />
         <p>Seguindo</p>
       </Link>

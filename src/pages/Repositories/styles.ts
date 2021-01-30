@@ -16,11 +16,13 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  position: fixed;
+
   width: 100%;
   height: 68px;
   background-color: #1f1f1f;
 
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 
   svg {
     margin-left: 20px;
@@ -37,6 +39,10 @@ export const Header = styled.div`
 export const Card = styled.div`
   border-bottom: 1px solid #7070705a;
   padding: 25px 0 25px 0;
+
+  &:nth-child(2) {
+    padding-top: 80px;
+  }
 
   &:last-child {
     padding-bottom: 100px;

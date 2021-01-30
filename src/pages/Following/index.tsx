@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 import { Container, Header, Card } from './styles';
 
+import ImgNotFound from '../../assets/imgNotFound.png';
+
 import TitleIndicator from '../../components/TitleIndicator';
 import TabMenuBar from '../../components/TabMenuBar';
 import { useTab } from '../../hooks/TabContext';
 import { useData } from '../../hooks/DataContext';
 
-const Follower: React.FC = () => {
+const Following: React.FC = () => {
   const { path, activateTab } = useTab();
   const { data } = useData();
 
@@ -23,20 +25,22 @@ const Follower: React.FC = () => {
           <Header>
             <FiArrowLeft size={22} color="#FFF" />
             <h1>
-              {`${data.userData.followers === 1}`
-                ? `${data.userData.followers} Seguidores`
-                : `${data.userData.followers} Seguidor`}
+              {`${data.userData.following === 1}`
+                ? `${data.userData.following} Seguidores`
+                : `${data.userData.following} Seguidor`}
             </h1>
           </Header>
         </Link>
 
-        {data.followersData?.map(follower => (
-          <Card key={follower.login}>
+        {data.followingData?.map(following => (
+          <Card key={following.login}>
             <a href="follow">
               <TitleIndicator
-                title={follower.login}
+                title={following.login}
                 titleSize={16}
-                image={follower.avatar_url}
+                image={
+                  following.avatar_url ? following.avatar_url : ImgNotFound
+                }
               />
 
               <FiArrowRight size={25} color="#fff" />
@@ -49,4 +53,4 @@ const Follower: React.FC = () => {
   );
 };
 
-export default Follower;
+export default Following;

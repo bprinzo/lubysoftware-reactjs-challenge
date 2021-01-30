@@ -10,7 +10,7 @@ import TabMenuBar from '../../components/TabMenuBar';
 import { useTab } from '../../hooks/TabContext';
 
 const Repositories: React.FC = () => {
-  const { userData } = useData();
+  const { data } = useData();
   const { path, activateTab } = useTab();
 
   useEffect(() => {
@@ -25,9 +25,9 @@ const Repositories: React.FC = () => {
             <FiArrowLeft size={22} color="#fff" />
             <h1>
               {`${
-                userData.public_repos === 1
-                  ? `${userData.public_repos} Repositório`
-                  : `${userData.public_repos}  Repositórios`
+                data.userData.public_repos === 1
+                  ? `${data.userData.public_repos} Repositório`
+                  : `${data.userData.public_repos}  Repositórios`
               }`}{' '}
             </h1>
           </Header>

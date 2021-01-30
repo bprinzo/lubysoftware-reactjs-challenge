@@ -16,13 +16,13 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { userData } = useData();
+  const { data } = useData();
 
   return (
     <ReactDomRoute
       {...rest}
       render={() => {
-        return isPrivate === !!userData.id ? (
+        return isPrivate === !!data.userData ? (
           <Component />
         ) : (
           <Redirect to={{ pathname: isPrivate ? '/' : '/user' }} />
