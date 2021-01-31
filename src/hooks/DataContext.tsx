@@ -29,7 +29,6 @@ interface UserDataObjectProperties {
   followers: number;
   following: number;
   html_url: string;
-  id: number;
 }
 
 interface FollowersDataObjectProperties {
@@ -42,10 +41,20 @@ interface FollowingDataObjectProperties {
   avatar_url: string;
 }
 
+interface ReposDataObjectProperties {
+  name: string;
+  description: string;
+  html_url: string;
+  fork: boolean;
+  private: boolean;
+  stargazers_count: number;
+}
+
 interface DataState {
   userData: UserDataObjectProperties;
-  followersData?: FollowersDataObjectProperties[];
-  followingData?: FollowingDataObjectProperties[];
+  followersData: FollowersDataObjectProperties[];
+  followingData: FollowingDataObjectProperties[];
+  reposData: ReposDataObjectProperties[];
 }
 
 const DataContext = createContext<DataContextData>({} as DataContextData);
@@ -59,29 +68,19 @@ const DataProvider: React.FC = ({ children }) => {
     const followingDataSet = localStorage.getItem(
       '@GithubProject:followingData',
     );
+    const reposDataSet = localStorage.getItem(`@GithubProject:reposData`);
 
-    if (userDataSet) {
+    if (userDataSet && followersDataSet && followingDataSet && reposDataSet) {
       const { userData } = JSON.parse(userDataSet);
+      const { followersData } = JSON.parse(followersDataSet);
+      const { followingData } = JSON.parse(followingDataSet);
+      const { reposData } = JSON.parse(reposDataSet);
 
-      if (followersDataSet) {
-        const { followersData } = JSON.parse(followersDataSet);
-
-        return {
-          userData,
-          followersData,
-        };
-      }
-
-      if (followingDataSet) {
-        const { followingData } = JSON.parse(followingDataSet);
-
-        return {
-          userData,
-          followingData,
-        };
-      }
       return {
         userData,
+        followersData,
+        followingData,
+        reposData,
       };
     }
 
@@ -107,7 +106,6 @@ const DataProvider: React.FC = ({ children }) => {
         followers: response.data.followers,
         following: response.data.following,
         html_url: response.data.html_url,
-        id: response.data.id,
       };
 
       localStorage.setItem(
@@ -163,35 +161,64 @@ const DataProvider: React.FC = ({ children }) => {
     [],
   );
 
+  const setReposData = useCallback(
+    (responseRepos: AxiosResponse<ReposDataObjectProperties[]>) => {
+      const reposData = responseRepos.data.map(repository => {
+        return {
+          name: repository.name,
+          description: repository.description,
+          html_url: repository.html_url,
+          fork: repository.fork,
+          private: repository.private,
+          stargazers_count: repository.stargazers_count,
+        };
+      });
+
+      localStorage.setItem(
+        '@GithubProject:reposData',
+        JSON.stringify({
+          reposData,
+        }),
+      );
+      return reposData;
+    },
+    [],
+  );
+
   const signIn = useCallback(
     async ({ loginName }) => {
-      const response = await api.get<UserDataObjectProperties>(`${loginName}`);
+      const [
+        response,
+        responseFollowers,
+        responseFollowing,
+        responseRepos,
+      ] = await Promise.all([
+        api.get<UserDataObjectProperties>(`${loginName}`),
+        api.get<FollowersDataObjectProperties[]>(`${loginName}/followers`),
+        api.get<FollowersDataObjectProperties[]>(`${loginName}/following`),
+        api.get<ReposDataObjectProperties[]>(`${loginName}/repos`),
+      ]);
+
       const userData = setUserData(response);
-
-      const responseFollowers = await api.get<FollowersDataObjectProperties[]>(
-        `${loginName}/followers?per_page=100`,
-      );
       const followersData = setFollowersData(responseFollowers);
-
-      const responseFollowing = await api.get<FollowersDataObjectProperties[]>(
-        `${loginName}/following?per_page=100`,
-      );
-
       const followingData = setFollowingData(responseFollowing);
+      const reposData = setReposData(responseRepos);
 
       setData({
         userData,
         followersData,
         followingData,
+        reposData,
       });
     },
-    [setUserData, setFollowersData, setFollowingData],
+    [setUserData, setFollowersData, setFollowingData, setReposData],
   );
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@GithubProject:userData');
     localStorage.removeItem('@GithubProject:followersData');
     localStorage.removeItem('@GithubProject:followingData');
+    localStorage.removeItem('@GithubProject:reposData');
 
     setData({} as DataState);
   }, []);

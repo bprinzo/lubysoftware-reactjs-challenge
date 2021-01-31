@@ -9,6 +9,9 @@ export const Container = styled.div<H1Props>`
   display: flex;
   align-items: center;
 
+  overflow-x: hidden;
+  word-break: break-all;
+
   img {
     height: 64px;
     border: 3px solid #fff;

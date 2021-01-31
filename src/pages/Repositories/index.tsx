@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { FiStar, FiUnlock, FiArrowLeft } from 'react-icons/fi';
+import { FiStar, FiUnlock, FiArrowLeft, FiLock } from 'react-icons/fi';
+import { BiGitRepoForked } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 
 import { Container, Header, Card, CardContainer } from './styles';
@@ -32,75 +33,30 @@ const Repositories: React.FC = () => {
             </h1>
           </Header>
         </Link>
+        {data.reposData.map(repository => (
+          <Card key={repository.name}>
+            <a href={repository.html_url}>
+              <TitleIndicator title={repository.name} titleSize={20} />
+              <CardContainer>
+                <p>{repository.description}</p>
+                <div>
+                  <FiStar size={20} color="#FFCE00" />
+                  <p>{repository.stargazers_count}</p>
 
-        <Card>
-          <TitleIndicator title="brasiliapp-react-native" titleSize={20} />
-          <CardContainer>
-            <p>
-              Repository for centralization of the BrasiliApp mobile project
-            </p>
-            <div>
-              <FiStar size={20} color="#FFCE00" />
-              <p>32</p>
-              <FiUnlock size={20} color="#63BF1F" />
-            </div>
-          </CardContainer>
-        </Card>
+                  {repository.private ? (
+                    <FiLock size={20} color="#CC042A" />
+                  ) : (
+                    <FiUnlock size={20} color="#63BF1F" />
+                  )}
 
-        <Card>
-          <TitleIndicator title="brasiliapp-react-native" titleSize={20} />
-          <CardContainer>
-            <p>
-              Repository for centralization of the BrasiliApp mobile project
-            </p>
-            <div>
-              <FiStar size={20} color="#FFCE00" />
-              <p>32</p>
-              <FiUnlock size={20} color="#63BF1F" />
-            </div>
-          </CardContainer>
-        </Card>
-
-        <Card>
-          <TitleIndicator title="brasiliapp-react-native" titleSize={20} />
-          <CardContainer>
-            <p>
-              Repository for centralization of the BrasiliApp mobile project
-            </p>
-            <div>
-              <FiStar size={20} color="#FFCE00" />
-              <p>32</p>
-              <FiUnlock size={20} color="#63BF1F" />
-            </div>
-          </CardContainer>
-        </Card>
-
-        <Card>
-          <TitleIndicator title="brasiliapp-react-native" titleSize={20} />
-          <CardContainer>
-            <p>
-              Repository for centralization of the BrasiliApp mobile project
-            </p>
-            <div>
-              <FiStar size={20} color="#FFCE00" />
-              <p>32</p>
-              <FiUnlock size={20} color="#63BF1F" />
-            </div>
-          </CardContainer>
-        </Card>
-        <Card>
-          <TitleIndicator title="brasiliapp-react-native" titleSize={20} />
-          <CardContainer>
-            <p>
-              Repository for centralization of the BrasiliApp mobile project
-            </p>
-            <div>
-              <FiStar size={20} color="#FFCE00" />
-              <p>32</p>
-              <FiUnlock size={20} color="#63BF1F" />
-            </div>
-          </CardContainer>
-        </Card>
+                  {repository.fork && (
+                    <BiGitRepoForked size={20} color="#8B949E" />
+                  )}
+                </div>
+              </CardContainer>
+            </a>
+          </Card>
+        ))}
       </Container>
       <TabMenuBar path={path} />
     </>

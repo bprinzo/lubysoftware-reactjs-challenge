@@ -32,7 +32,7 @@ const Follower: React.FC = () => {
 
         {data.followersData?.map(follower => (
           <Card key={follower.login}>
-            <a href="follow">
+            <Link to="userfollower">
               <TitleIndicator
                 title={follower.login}
                 titleSize={16}
@@ -40,7 +40,7 @@ const Follower: React.FC = () => {
               />
 
               <FiArrowRight size={25} color="#fff" />
-            </a>
+            </Link>
           </Card>
         ))}
       </Container>

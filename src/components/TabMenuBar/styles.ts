@@ -70,7 +70,7 @@ export const Container = styled.div<ContainerProps>`
       }
     `}
   ${props =>
-    props.path === '/followings' &&
+    props.path === '/following' &&
     css`
     a:nth-child(4) {
       svg {
