@@ -64,6 +64,11 @@ yarn start
 
 ![Repositories](/SampleImages/Repositories.png)
 
+### Following
+
+![Following](/SampleImages/Following.png)
+
+
 ### Followers
 
 ![Followers](/SampleImages/Follower.png)
