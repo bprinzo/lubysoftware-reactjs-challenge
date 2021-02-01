@@ -39,14 +39,12 @@ apt-get install -y nodejs
 ```
 yarn
 ```
-3. Start the API
+3. Start the Application
 ```
 yarn start
 ```
 
 ## Pages
-
-**Example using insomnia**
  
 ### SignIn
 
