@@ -1,46 +1,87 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PWA that uses the Github API
 
-## Available Scripts
+This is a PWA built with react, which uses the Github API, in which when using the login to search for profiles it returns information about the user, his repositories, followers and who he follows
 
-In the project directory, you can run:
 
-### `yarn start`
+## Built With
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* [React](https://reactjs.org/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `yarn test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Node.js
 
-### `yarn build`
+**Node.js v15x**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+# Using Ubuntu
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_15.x | bash -
+apt-get install -y nodejs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+ * Windows donwload and install de .msi [Node.js](https://nodejs.org/en/)
 
-### `yarn eject`
+### Installation instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Clone de repo
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```git clone https://github.com/bprinzo/lubysoftware-reactjs-challenge.git```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. Install Yarn packages
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+yarn
+```
+3. Start the API
+```
+yarn start
+```
 
-## Learn More
+## Pages
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Example using insomnia**
+ 
+### SignIn
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![SignIn](/SampleImages/SignIn.png)
+
+#### SignIn Errors
+
+![SignInError1](/SampleImages/SignInError1.png)
+
+![SignInError2](/SampleImages/SignInError2.png)
+
+### User
+
+![User](/SampleImages/User.png)
+
+### Repositories
+
+![Repositories](/SampleImages/Repositories.png)
+
+### Followers
+
+![Followers](/SampleImages/Followers.png)
+
+### Following
+
+![Following](/SampleImages/Following.png)
+
+### UserFollower
+
+![UserFollower](/SampleImages/UserFollower.png)
+
+### Tab Menu
+
+![TabMenu](/SampleImages/TabMenu.png)
+
+
+## License
+Distributed under the MIT License. See ```LICENSE``` for more information.
