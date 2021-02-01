@@ -68,7 +68,7 @@ yarn start
 
 ### Followers
 
-![Followers](/SampleImages/Followers.png)
+![Followers](/SampleImages/Follower.png)
 
 ### Following
 
