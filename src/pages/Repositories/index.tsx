@@ -35,7 +35,7 @@ const Repositories: React.FC = () => {
         </Link>
         {data.reposData.map(repository => (
           <Card key={repository.name}>
-            <a href={repository.html_url}>
+            <a href={repository.html_url} target="_blank" rel="noreferrer">
               <TitleIndicator title={repository.name} titleSize={20} />
               <CardContainer>
                 <p>{repository.description}</p>

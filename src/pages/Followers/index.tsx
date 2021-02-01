@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -11,11 +11,18 @@ import { useData } from '../../hooks/DataContext';
 
 const Follower: React.FC = () => {
   const { path, activateTab } = useTab();
-  const { data } = useData();
+  const { data, showFollowerUser } = useData();
 
   useEffect(() => {
     activateTab();
   }, [activateTab]);
+
+  const handleClick = useCallback(
+    loginName => {
+      showFollowerUser(loginName);
+    },
+    [showFollowerUser],
+  );
   return (
     <>
       <Container>
@@ -32,7 +39,7 @@ const Follower: React.FC = () => {
 
         {data.followersData?.map(follower => (
           <Card key={follower.login}>
-            <Link to="userfollower">
+            <Link to="userfollower" onClick={() => handleClick(follower.login)}>
               <TitleIndicator
                 title={follower.login}
                 titleSize={16}

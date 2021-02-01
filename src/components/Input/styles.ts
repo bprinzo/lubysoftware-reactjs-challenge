@@ -60,7 +60,7 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 export const Error = styled(Tooltip)`
-  margin-left: 16px;
+  margin-right: 16px;
   svg {
     margin: 0;
   }

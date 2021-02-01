@@ -21,15 +21,13 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn } = useData();
+  const { signIn, error } = useData();
 
   const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
       try {
-        formRef.current?.setErrors({});
-
         const schema = Yup.object().shape({
           user: Yup.string().required('Campo obrigatório'),
         });
@@ -42,6 +40,11 @@ const SignIn: React.FC = () => {
           loginName: data.user,
         });
 
+        if (error) {
+          formRef.current?.setErrors({ user: error.message });
+          return;
+        }
+
         history.push('/user');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -50,7 +53,7 @@ const SignIn: React.FC = () => {
         }
       }
     },
-    [signIn, history],
+    [signIn, history, error],
   );
 
   return (

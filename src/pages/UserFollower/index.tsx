@@ -15,16 +15,19 @@ import { useData } from '../../hooks/DataContext';
 import { useTab } from '../../hooks/TabContext';
 
 const User: React.FC = () => {
-  const { data, signOut } = useData();
+  const { followerUserData, signIn } = useData();
   const { path, activateTab } = useTab();
 
   useEffect(() => {
     activateTab();
   }, [activateTab]);
 
-  const handleClick = useCallback(() => {
-    signOut();
-  }, [signOut]);
+  const handleClick = useCallback(
+    loginName => {
+      signIn({ loginName });
+    },
+    [signIn],
+  );
 
   return (
     <>
@@ -33,55 +36,55 @@ const User: React.FC = () => {
           <Link to="user">
             <FiArrowLeft size={24} />
           </Link>
-          <a href={data.userData.html_url}>
-            <h1>{`#${data.userData.login}`}</h1>
+          <a href={followerUserData?.html_url}>
+            <h1>{`#${followerUserData?.login}`}</h1>
           </a>
-          <Link to="/" onClick={handleClick}>
+          <Link to="/" onClick={() => handleClick(followerUserData?.login)}>
             Salvar <FiLogIn size={20} color="#5CBC29" />
           </Link>
         </Header>
 
-        <img src={data.userData.avatar_url} alt="Avatar Logo" />
+        <img src={followerUserData?.avatar_url} alt="Avatar Logo" />
 
         <TitleIndicator
-          title={data.userData.name ? data.userData.name : `-`}
+          title={followerUserData?.name ? followerUserData?.name : `-`}
           titleSize={26}
           isTitleUppercase
         />
         <Content>
           <p>
-            {data.userData.email && <IoMailOutline />}
-            {data.userData.email}
+            {followerUserData?.email && <IoMailOutline />}
+            {followerUserData?.email}
           </p>
           <p>
-            {data.userData.location && <IoLocationOutline />}
-            {data.userData.location}
+            {followerUserData?.location && <IoLocationOutline />}
+            {followerUserData?.location}
           </p>
           <p>
-            {data.userData.company && <IoBusinessOutline />}
-            {data.userData.company}
+            {followerUserData?.company && <IoBusinessOutline />}
+            {followerUserData?.company}
           </p>
         </Content>
 
         <MiddleContent>
-          <Link to="followers">
-            <h1>{data.userData.followers}</h1>
+          <div>
+            <h1>{followerUserData?.followers}</h1>
             <p>Seguidores</p>
-          </Link>
-          <Link to="following">
-            <h1>{data.userData.following}</h1>
+          </div>
+          <div>
+            <h1>{followerUserData?.following}</h1>
             <p>Seguindo</p>
-          </Link>
-          <Link to="repos">
-            <h1>{data.userData.public_repos}</h1>
+          </div>
+          <div>
+            <h1>{followerUserData?.public_repos}</h1>
             <p>Repos</p>
-          </Link>
+          </div>
         </MiddleContent>
-        {data.userData.bio && (
+        {followerUserData?.bio && (
           <>
             <TitleIndicator title="Bio" titleSize={26} isTitleUppercase />
             <Content>
-              <p>{data.userData.bio}</p>
+              <p>{followerUserData?.bio}</p>
             </Content>
           </>
         )}

@@ -6,10 +6,17 @@ interface SignInCredentials {
   loginName: string;
 }
 
+interface ErrorProps {
+  message: string;
+}
+
 interface DataContextData {
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   data: DataState;
+  error?: ErrorProps;
+  showFollowerUser(credentials: SignInCredentials): Promise<void>;
+  followerUserData?: UserDataObjectProperties;
 }
 
 interface UserDataObjectProperties {
@@ -60,6 +67,15 @@ interface DataState {
 const DataContext = createContext<DataContextData>({} as DataContextData);
 
 const DataProvider: React.FC = ({ children }) => {
+  const [error] = useState<ErrorProps>({
+    message: 'Usuário não encontrado',
+  } as ErrorProps);
+
+  const [
+    followerUserData,
+    setFollowerUserData,
+  ] = useState<UserDataObjectProperties>({} as UserDataObjectProperties);
+
   const [data, setData] = useState<DataState>(() => {
     const userDataSet = localStorage.getItem('@GithubProject:userData');
     const followersDataSet = localStorage.getItem(
@@ -108,12 +124,6 @@ const DataProvider: React.FC = ({ children }) => {
         html_url: response.data.html_url,
       };
 
-      localStorage.setItem(
-        '@GithubProject:userData',
-        JSON.stringify({
-          userData,
-        }),
-      );
       return userData;
     },
     [],
@@ -128,13 +138,6 @@ const DataProvider: React.FC = ({ children }) => {
         };
       });
 
-      localStorage.setItem(
-        '@GithubProject:followersData',
-        JSON.stringify({
-          followersData,
-        }),
-      );
-
       return followersData;
     },
     [],
@@ -148,13 +151,6 @@ const DataProvider: React.FC = ({ children }) => {
           avatar_url: following.avatar_url,
         };
       });
-
-      localStorage.setItem(
-        '@GithubProject:followingData',
-        JSON.stringify({
-          followingData,
-        }),
-      );
 
       return followingData;
     },
@@ -174,15 +170,53 @@ const DataProvider: React.FC = ({ children }) => {
         };
       });
 
+      return reposData;
+    },
+    [],
+  );
+
+  const setLocalStorage = useCallback(
+    (userData, followersData, followingData, reposData) => {
+      localStorage.setItem(
+        '@GithubProject:userData',
+        JSON.stringify({
+          userData,
+        }),
+      );
+
+      localStorage.setItem(
+        '@GithubProject:followersData',
+        JSON.stringify({
+          followersData,
+        }),
+      );
+
+      localStorage.setItem(
+        '@GithubProject:followingData',
+        JSON.stringify({
+          followingData,
+        }),
+      );
+
       localStorage.setItem(
         '@GithubProject:reposData',
         JSON.stringify({
           reposData,
         }),
       );
-      return reposData;
     },
     [],
+  );
+
+  const showFollowerUser = useCallback(
+    async loginName => {
+      const response = await api.get<UserDataObjectProperties>(`${loginName}`);
+
+      const followerUser = setUserData(response);
+
+      setFollowerUserData(followerUser);
+    },
+    [setUserData],
   );
 
   const signIn = useCallback(
@@ -204,6 +238,8 @@ const DataProvider: React.FC = ({ children }) => {
       const followingData = setFollowingData(responseFollowing);
       const reposData = setReposData(responseRepos);
 
+      setLocalStorage(userData, followersData, followingData, reposData);
+
       setData({
         userData,
         followersData,
@@ -211,7 +247,13 @@ const DataProvider: React.FC = ({ children }) => {
         reposData,
       });
     },
-    [setUserData, setFollowersData, setFollowingData, setReposData],
+    [
+      setUserData,
+      setFollowersData,
+      setFollowingData,
+      setReposData,
+      setLocalStorage,
+    ],
   );
 
   const signOut = useCallback(() => {
@@ -224,7 +266,16 @@ const DataProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ data, signIn, signOut }}>
+    <DataContext.Provider
+      value={{
+        data,
+        error,
+        followerUserData,
+        signIn,
+        signOut,
+        showFollowerUser,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );
