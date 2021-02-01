@@ -74,7 +74,19 @@ const DataProvider: React.FC = ({ children }) => {
   const [
     followerUserData,
     setFollowerUserData,
-  ] = useState<UserDataObjectProperties>({} as UserDataObjectProperties);
+  ] = useState<UserDataObjectProperties>(() => {
+    const followerUserDataSet = localStorage.getItem(
+      '@GithubProject:FollowerUserData',
+    );
+
+    if (followerUserDataSet) {
+      const { followerUser } = JSON.parse(followerUserDataSet);
+
+      return followerUser;
+    }
+
+    return {} as UserDataObjectProperties;
+  });
 
   const [data, setData] = useState<DataState>(() => {
     const userDataSet = localStorage.getItem('@GithubProject:userData');
@@ -213,6 +225,13 @@ const DataProvider: React.FC = ({ children }) => {
       const response = await api.get<UserDataObjectProperties>(`${loginName}`);
 
       const followerUser = setUserData(response);
+
+      localStorage.setItem(
+        '@GithubProject:FollowerUserData',
+        JSON.stringify({
+          followerUser,
+        }),
+      );
 
       setFollowerUserData(followerUser);
     },

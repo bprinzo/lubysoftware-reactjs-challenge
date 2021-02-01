@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -6,16 +6,10 @@ import { Container, Header, Card } from './styles';
 
 import TitleIndicator from '../../components/TitleIndicator';
 import TabMenuBar from '../../components/TabMenuBar';
-import { useTab } from '../../hooks/TabContext';
 import { useData } from '../../hooks/DataContext';
 
 const Follower: React.FC = () => {
-  const { path, activateTab } = useTab();
   const { data, showFollowerUser } = useData();
-
-  useEffect(() => {
-    activateTab();
-  }, [activateTab]);
 
   const handleClick = useCallback(
     loginName => {
@@ -51,7 +45,7 @@ const Follower: React.FC = () => {
           </Card>
         ))}
       </Container>
-      <TabMenuBar path={path} />
+      <TabMenuBar />
     </>
   );
 };

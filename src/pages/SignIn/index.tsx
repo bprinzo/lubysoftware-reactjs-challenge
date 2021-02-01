@@ -40,14 +40,17 @@ const SignIn: React.FC = () => {
           loginName: data.user,
         });
 
+        if (error) {
+          formRef.current?.setErrors({ user: error.message });
+          return;
+        }
+
         history.push('/user');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
-          return;
         }
-        if (error) formRef.current?.setErrors({ user: error.message });
       }
     },
     [signIn, history, error],

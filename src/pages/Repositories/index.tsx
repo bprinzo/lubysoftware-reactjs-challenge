@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FiStar, FiUnlock, FiArrowLeft, FiLock } from 'react-icons/fi';
 import { BiGitRepoForked } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -8,15 +8,9 @@ import { Container, Header, Card, CardContainer } from './styles';
 import { useData } from '../../hooks/DataContext';
 import TitleIndicator from '../../components/TitleIndicator';
 import TabMenuBar from '../../components/TabMenuBar';
-import { useTab } from '../../hooks/TabContext';
 
 const Repositories: React.FC = () => {
   const { data } = useData();
-  const { path, activateTab } = useTab();
-
-  useEffect(() => {
-    activateTab();
-  }, [activateTab]);
 
   return (
     <>
@@ -58,7 +52,7 @@ const Repositories: React.FC = () => {
           </Card>
         ))}
       </Container>
-      <TabMenuBar path={path} />
+      <TabMenuBar />
     </>
   );
 };

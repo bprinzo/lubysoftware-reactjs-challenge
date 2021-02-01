@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import {
   IoBusinessOutline,
@@ -9,28 +9,24 @@ import { Link } from 'react-router-dom';
 
 import { Container, Header, MiddleContent, Content } from './styles';
 
+import { useData } from '../../hooks/DataContext';
+
 import TitleIndicator from '../../components/TitleIndicator';
 import TabMenuBar from '../../components/TabMenuBar';
-import { useData } from '../../hooks/DataContext';
-import { useTab } from '../../hooks/TabContext';
+import Loading from '../../components/Loading';
 
 const User: React.FC = () => {
   const { data, signOut } = useData();
-  const { path, activateTab } = useTab();
-
-  useEffect(() => {
-    activateTab();
-  }, [activateTab]);
 
   const handleClick = useCallback(() => {
     signOut();
   }, [signOut]);
 
   return (
-    <>
+    <Loading>
       <Container>
         <Header>
-          <a href={data.userData.html_url}>
+          <a target="_blank" rel="noreferrer" href={data.userData.html_url}>
             <h1>{`#${data.userData.login}`}</h1>
           </a>
           <Link to="/" onClick={handleClick}>
@@ -65,10 +61,12 @@ const User: React.FC = () => {
             <h1>{data.userData.followers}</h1>
             <p>Seguidores</p>
           </Link>
+
           <Link to="following">
             <h1>{data.userData.following}</h1>
             <p>Seguindo</p>
           </Link>
+
           <Link to="repos">
             <h1>{data.userData.public_repos}</h1>
             <p>Repos</p>
@@ -83,8 +81,8 @@ const User: React.FC = () => {
           </>
         )}
       </Container>
-      <TabMenuBar path={path} />
-    </>
+      <TabMenuBar />
+    </Loading>
   );
 };
 

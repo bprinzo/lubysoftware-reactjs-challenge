@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiGithub, FiHome, FiUsers } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+
+import { useTab } from '../../hooks/TabContext';
 
 import { Container } from './styles';
 
 interface TabMenuProps {
-  path: string;
+  disabled?: boolean;
 }
 
-const TabMenuBar: React.FC<TabMenuProps> = ({ path }) => {
+const TabMenuBar: React.FC<TabMenuProps> = () => {
+  const { path, activateTab } = useTab();
+
+  useEffect(() => {
+    activateTab();
+  }, [activateTab]);
+
   return (
     <Container path={path}>
       <Link to="user">

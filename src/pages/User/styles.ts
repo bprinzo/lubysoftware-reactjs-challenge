@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   height: 100vh;
@@ -38,6 +39,11 @@ export const Header = styled.div`
     color: #fff;
     font-size: 17px;
     font-weight: lighter;
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${shade(0.2, '#fff')};
+    }
 
     svg {
       margin: 0 20px 0 12px;
@@ -73,6 +79,11 @@ export const MiddleContent = styled.div`
   a {
     text-decoration: none;
     color: #fff;
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${shade(0.2, '#fff')};
+    }
   }
 
   h1 {

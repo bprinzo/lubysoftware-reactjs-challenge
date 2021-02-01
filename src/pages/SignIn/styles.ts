@@ -33,6 +33,7 @@ export const Content = styled.div`
       font-size: 20px;
 
       background: #ffce00;
+      transition: background-color 0.2s;
 
       svg {
         margin-left: 8px;

@@ -27,9 +27,12 @@ export const Header = styled.div`
   background-color: #1f1f1f;
 
   margin-bottom: 100px;
+  color: #fff;
 
   svg {
     margin-left: 20px;
+    transition: color 0.2;
+    color: #fff;
   }
 
   h1 {
@@ -42,6 +45,7 @@ export const Header = styled.div`
 
 export const Card = styled.div`
   margin-right: 16px;
+
   svg {
     margin-right: 8px;
 
