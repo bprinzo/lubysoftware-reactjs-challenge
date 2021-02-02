@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/lubysoftware-reactjs-challenge/static/js/main.4b86d05f.chunk.js",
-    "main.js.map": "/lubysoftware-reactjs-challenge/static/js/main.4b86d05f.chunk.js.map",
+    "main.js": "/lubysoftware-reactjs-challenge/static/js/main.5c763e14.chunk.js",
+    "main.js.map": "/lubysoftware-reactjs-challenge/static/js/main.5c763e14.chunk.js.map",
     "runtime-main.js": "/lubysoftware-reactjs-challenge/static/js/runtime-main.42933d7c.js",
     "runtime-main.js.map": "/lubysoftware-reactjs-challenge/static/js/runtime-main.42933d7c.js.map",
     "static/js/2.fc2b0fda.chunk.js": "/lubysoftware-reactjs-challenge/static/js/2.fc2b0fda.chunk.js",
@@ -13,6 +13,6 @@
   "entrypoints": [
     "static/js/runtime-main.42933d7c.js",
     "static/js/2.fc2b0fda.chunk.js",
-    "static/js/main.4b86d05f.chunk.js"
+    "static/js/main.5c763e14.chunk.js"
   ]
 }
