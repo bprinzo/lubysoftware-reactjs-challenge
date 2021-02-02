@@ -8,7 +8,7 @@ import Routes from './routes';
 import AppProvider from './hooks';
 
 const App: React.FC = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <AppProvider>
       <Routes />
     </AppProvider>
