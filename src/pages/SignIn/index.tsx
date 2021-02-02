@@ -3,7 +3,6 @@ import { FiArrowRight, FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { useHistory } from 'react-router-dom';
 
 import { useData } from '../../hooks/DataContext';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -23,8 +22,6 @@ const SignIn: React.FC = () => {
 
   const { signIn, error } = useData();
 
-  const history = useHistory();
-
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
       try {
@@ -42,10 +39,7 @@ const SignIn: React.FC = () => {
 
         if (error) {
           formRef.current?.setErrors({ user: error.message });
-          return;
         }
-
-        history.push('/user');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -53,7 +47,7 @@ const SignIn: React.FC = () => {
         }
       }
     },
-    [signIn, history, error],
+    [signIn, error],
   );
 
   return (
