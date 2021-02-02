@@ -1,6 +1,8 @@
 
 # PWA that uses the Github API
 
+## You can view the website on [Github Pages](https://bprinzo.github.io/lubysoftware-reactjs-challenge/)
+
 This is a PWA built with react, which uses the Github API, in which when using the login to search for profiles it returns information about the user, his repositories, followers and who he follows
 
 
@@ -82,6 +84,9 @@ yarn start
 
 ![TabMenu](/SampleImages/TabMenu.png)
 
+## Obs
+
+The site was made using a react native layout, suggest to open the inspect tool and toggle the device toolbar
 
 ## License
 Distributed under the MIT License. See ```LICENSE``` for more information.
