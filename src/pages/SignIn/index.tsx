@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import { useHistory } from 'react-router-dom';
 import { useData } from '../../hooks/DataContext';
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -19,6 +20,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
   const { signIn, error } = useData();
 
@@ -39,7 +41,10 @@ const SignIn: React.FC = () => {
 
         if (error) {
           formRef.current?.setErrors({ user: error.message });
+          return;
         }
+
+        history.push('/user');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -47,7 +52,7 @@ const SignIn: React.FC = () => {
         }
       }
     },
-    [signIn, error],
+    [signIn, error, history],
   );
 
   return (

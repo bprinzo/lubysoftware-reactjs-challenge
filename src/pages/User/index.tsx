@@ -23,66 +23,68 @@ const User: React.FC = () => {
   }, [signOut]);
 
   return (
-    <Loading>
-      <Container>
-        <Header>
-          <a target="_blank" rel="noreferrer" href={data.userData.html_url}>
-            <h1>{`#${data.userData.login}`}</h1>
-          </a>
-          <Link to="/" onClick={handleClick}>
-            Sair <FiLogOut size={20} color="#D03434" />
-          </Link>
-        </Header>
+    <>
+      <Loading>
+        <Container>
+          <Header>
+            <a target="_blank" rel="noreferrer" href={data.userData.html_url}>
+              <h1>{`#${data.userData.login}`}</h1>
+            </a>
+            <Link to="/" onClick={handleClick}>
+              Sair <FiLogOut size={20} color="#D03434" />
+            </Link>
+          </Header>
 
-        <img src={data.userData.avatar_url} alt="Avatar Logo" />
+          <img src={data.userData.avatar_url} alt="Avatar Logo" />
 
-        <TitleIndicator
-          title={data.userData.name ? data.userData.name : `-`}
-          titleSize={26}
-          isTitleUppercase
-        />
-        <Content>
-          <p>
-            {data.userData.email && <IoMailOutline />}
-            {data.userData.email}
-          </p>
-          <p>
-            {data.userData.location && <IoLocationOutline />}
-            {data.userData.location}
-          </p>
-          <p>
-            {data.userData.company && <IoBusinessOutline />}
-            {data.userData.company}
-          </p>
-        </Content>
+          <TitleIndicator
+            title={data.userData.name ? data.userData.name : `-`}
+            titleSize={26}
+            isTitleUppercase
+          />
+          <Content>
+            <p>
+              {data.userData.email && <IoMailOutline />}
+              {data.userData.email}
+            </p>
+            <p>
+              {data.userData.location && <IoLocationOutline />}
+              {data.userData.location}
+            </p>
+            <p>
+              {data.userData.company && <IoBusinessOutline />}
+              {data.userData.company}
+            </p>
+          </Content>
 
-        <MiddleContent>
-          <Link to="followers">
-            <h1>{data.userData.followers}</h1>
-            <p>Seguidores</p>
-          </Link>
+          <MiddleContent>
+            <Link to="followers">
+              <h1>{data.userData.followers}</h1>
+              <p>Seguidores</p>
+            </Link>
 
-          <Link to="following">
-            <h1>{data.userData.following}</h1>
-            <p>Seguindo</p>
-          </Link>
+            <Link to="following">
+              <h1>{data.userData.following}</h1>
+              <p>Seguindo</p>
+            </Link>
 
-          <Link to="repos">
-            <h1>{data.userData.public_repos}</h1>
-            <p>Repos</p>
-          </Link>
-        </MiddleContent>
-        {data.userData.bio && (
-          <>
-            <TitleIndicator title="Bio" titleSize={26} isTitleUppercase />
-            <Content>
-              <p>{data.userData.bio}</p>
-            </Content>
-          </>
-        )}
-      </Container>
+            <Link to="repos">
+              <h1>{data.userData.public_repos}</h1>
+              <p>Repos</p>
+            </Link>
+          </MiddleContent>
+          {data.userData.bio && (
+            <>
+              <TitleIndicator title="Bio" titleSize={26} isTitleUppercase />
+              <Content>
+                <p>{data.userData.bio}</p>
+              </Content>
+            </>
+          )}
+        </Container>
+      </Loading>
       <TabMenuBar />
-    </Loading>
+    </>
   );
 };
 
